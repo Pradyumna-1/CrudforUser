@@ -1,0 +1,14 @@
+package jdbc_steps;
+
+public class UpdateRecordwithPreparedStatement {
+	public static void main(String[] args) {
+		String sql="delete from demo1 name = (?) WHERE name = ''";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}

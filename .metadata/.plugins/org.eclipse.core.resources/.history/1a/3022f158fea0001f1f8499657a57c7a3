@@ -1,0 +1,38 @@
+package jdbc_steps;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class CRUDApp {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_steps?user=root&password=1234");
+			
+			System.out.println("connection successful");
+			while(true) {
+				System.out.println("1. Insert data");
+				System.out.println("2. Updat data");
+				System.out.println("3. Delete data");
+				System.out.println("4. stop execution");
+				System.out.println("Enter the number");
+				int choice=sc.nextInt();
+				switch(choice) {
+				case 1:
+					String q1="insert into emp(eid,ename,esal) values eid=?, ename=?, esal=?";
+					
+					
+					break;
+				}
+			
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

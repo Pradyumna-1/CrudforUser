@@ -1,0 +1,111 @@
+package jdbc_steps;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class CRud_operation {
+public static void main(String[] args) {
+	
+	Scanner sc= new Scanner(System.in);
+	
+	try {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_steps?user=root&password=1234");
+		System.out.println("Connection established");
+		
+		while(true) {
+       
+            System.out.println("1. Insert data");
+            System.out.println("2. Update data");
+            System.out.println("3. Delete data");     
+            System.out.println("4. Exit the program");
+            System.out.println("Choose an option:");
+            
+            int choice =sc.nextInt();
+            
+            switch(choice) {
+            case 1:
+            	System.out.println("Enter the id");
+            	int iid=sc.nextInt();
+            	
+            	System.out.println("Enter the name");
+            	String iname=sc.next();
+            	System.out.println("Enter the salary");
+            	System.out.println();
+            	Double isal=sc.nextDouble();
+            	
+            	String q1="insert into emp (eid, ename, esal) values (?, ?, ?)";
+            	PreparedStatement istmt=con.prepareStatement(q1);
+            	istmt.setInt(1, iid);
+            	istmt.setString(2, iname);
+            	istmt.setDouble(3, isal);
+            	
+            	System.out.println("Data inserted successfully");
+            	istmt.executeUpdate();
+            break;
+//            Update
+            
+            case 2:
+            	System.out.println("Update the data based on the id");
+            	
+            	System.out.println("Enter the id");
+            	int uid=sc.nextInt();
+            	
+            	System.out.println("Enter the name");
+            	String uname=sc.next();
+            	
+            	System.out.println();
+            	Double usal=sc.nextDouble();
+            	
+            	
+            	String q2="update set emp ename=?, esal=? where eid=?";
+            	
+            	PreparedStatement ustmt=con.prepareStatement(q2);
+            	ustmt.setInt(1, uid);
+            	ustmt.setString(2, uname);
+            	ustmt.setDouble(3, usal);
+            	
+            	ustmt.executeUpdate();
+            	System.out.println("Record updated successfully");
+            	break;
+            	
+            case 3: //for delete the data
+          
+            	System.out.println("Delete the record based on the id");
+            	System.out.println("Enter the id");
+            	int did=sc.nextInt();
+            	
+            	System.out.println("Enter the name");
+            	String dname=sc.next();
+            	
+            	System.out.println();
+            	Double dsal=sc.nextDouble();
+            	
+            	
+            	String q3="delete from emp ename=?,esal=? where eid=?";
+            	PreparedStatement dpst=con.prepareStatement(q3);
+            	
+            	dpst.executeUpdate();
+            	System.out.println("Record deleted");
+            	break;
+            	
+            case 4: //For close the connection
+            	sc.close();
+            	con.close();
+            	System.out.println("Program terminated");
+            	break;
+            	
+            default:
+            	System.out.println("Choose the correct input value ");
+            }
+		}
+	} catch (ClassNotFoundException | SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+}	

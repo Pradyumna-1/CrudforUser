@@ -1,0 +1,55 @@
+package jdbc_steps;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class CRUDApp {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_steps?user=root&password=1234");
+			
+//			System.out.println("connection successful");
+			while(true) {
+				System.out.println("1. Insert data");
+				System.out.println("2. Updat data");
+				System.out.println("3. Delete data");
+				System.out.println("4. stop execution");
+				System.out.println("Enter the number");
+				int choice=sc.nextInt();
+				switch(choice) {
+				case 1:
+					
+					System.out.println("Enter your id");
+					int id=sc.nextInt();
+					System.out.println("Enter your name");
+					String name=sc.next();
+					System.out.println("Enter your sal");
+					double sal=sc.nextDouble();
+					
+					String q1="insert into emp(eid,ename,esal) values eid=?, ename=?, esal=?";
+					PreparedStatement pst=con.prepareStatement(q1);
+					
+					pst.setInt(1, id);
+					pst.setString(2, name);
+					pst.setDouble(3, sal);
+					pst.executeUpdate();
+					
+					System.out.println("Data inserted Sucessfully");
+					
+					
+					break;
+				}
+			
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

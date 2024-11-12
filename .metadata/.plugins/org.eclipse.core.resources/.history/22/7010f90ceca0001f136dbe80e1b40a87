@@ -1,0 +1,126 @@
+//package jdbc_steps;
+//
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.SQLException;
+//import java.sql.Statement;
+//import java.util.Scanner;
+//
+//public class CRud_operation {
+//	public static void main(String[] args) {
+//		Scanner sc = new Scanner(System.in);
+//		try {
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_steps?user=root&password=1234");
+//			Statement stmt=con.createStatement();
+//			
+//			while(true) {
+//				System.out.println("Choose an option");
+//				System.out.println("1. for insert data");
+//				System.out.println("2. for updat data");
+//				System.out.println("3. for delete data");
+//				System.out.println("4. for stop");
+//				
+//				
+//				int choice =sc.nextInt();
+//				if(choice==1) {
+//					 String sql = "INSERT INTO users (eid, ename, esal) VALUES (?, ?, ?)";
+//					stmt.executeUpdate(sql);
+//					System.out.println("Record updated successfully");
+//				}
+//				else if(choice==2) {
+//					String sql="UPDATE users SET eid= ?, ename = ?, esal = ? WHERE id = ?";	
+//					stmt.execute(sql);
+//					System.out.println("Record updated successfully");
+//				}
+//				else if(choice ==3) {
+//					String sql= "delete from emp where esal=?";
+//					stmt.execute(sql);
+//					System.out.println("Record deleted successfully");
+//				}
+//				else if(choice ==4) {
+//					  System.out.println("Exiting program.");
+//	                    sc.close();
+//	                    break;
+//				}
+//				else {
+//                    System.out.println("Invalid option. Please try again.");
+//
+//				}
+//					
+//			}
+//			
+//		} catch (ClassNotFoundException | SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//
+//}
+
+package jdbc_steps;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class CRud_operation {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_steps?user=root&password=1234");
+			
+			System.out.println("1. Insert data");
+			System.out.println("2. Updae data");
+			System.out.println("3. Delete data");
+			System.out.println("4. To stop the program");
+			System.out.println("Choose any one ");
+			int choice=sc.nextInt();
+			switch(choice){
+			case 1:
+				System.out.println("Enter eid");
+				int eid=sc.nextInt();
+				
+				System.out.println("Enter ename");
+				String ename=sc.next();
+				
+				System.out.println("Enter esal");
+				double esal=sc.nextDouble();
+				
+				String sql="insert into emp (eid,ename,esal) values(?,?,?)";
+				PreparedStatement pst=con.prepareStatement(sql);
+				pst.setInt(1, eid);
+				pst.setString(2,ename);
+				pst.setDouble(3, esal);
+				pst.executeUpdate();
+				System.out.println("Query executed successfully");
+			
+				break;
+			case 2:
+				
+				break;
+				
+			case 3:
+				
+				break;
+				
+			case 4:
+				
+				break;
+				
+			}
+			
+        
+        } catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+    }
+}
+

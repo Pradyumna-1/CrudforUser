@@ -1,0 +1,23 @@
+package jdbc_steps;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Create_Table {
+	public static void main(String[] args) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			System.out.println("Driver class created");
+			Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306 ? user=root && password=1234");
+			System.out.println("Connection established ");
+			Statement stmt=con.createStatement();
+			
+			System.out.println("Platform created");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

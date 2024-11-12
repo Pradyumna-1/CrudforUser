@@ -1,0 +1,16 @@
+package jdbc_steps;
+
+import java.util.Scanner;
+
+public class CRUDApp {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		try {
+			Class.forName("com.myql.cj.jdbc");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
